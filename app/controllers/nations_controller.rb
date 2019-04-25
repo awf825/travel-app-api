@@ -1,4 +1,4 @@
-class NationsController < ProtectedController
+class NationsController < OpenReadController
   before_action :set_nation, only: [:show, :update, :destroy]
 
   # GET /nations

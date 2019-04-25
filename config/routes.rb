@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :nations
+  resources :users
   # RESTful routes
   resources :examples, except: %i[new edit]
 
