@@ -1,4 +1,4 @@
-class NationsController < ApplicationController
+class NationsController < ProtectedController
   before_action :set_nation, only: [:show, :update, :destroy]
 
   # GET /nations
@@ -10,12 +10,13 @@ class NationsController < ApplicationController
 
   # GET /nations/1
   def show
+    @nation = Nation.find(params[:id])
     render json: @nation
   end
 
   # POST /nations
   def create
-    @nation = Nation.new(nation_params)
+    @nation = current_user.nations.build(nation_params)
 
     if @nation.save
       render json: @nation, status: :created, location: @nation
@@ -41,11 +42,11 @@ class NationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_nation
-      @nation = Nation.find(params[:id])
+      @nation = current_user.nations.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def nation_params
-      params.require(:nation).permit(:name, :language)
+      params.require(:nation).permit(:name, :language, :capital)
     end
 end

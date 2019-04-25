@@ -1,3 +1,3 @@
 class NationSerializer < ActiveModel::Serializer
-  attributes :id, :name, :language
+  attributes :id, :name, :language, :capital
 end
