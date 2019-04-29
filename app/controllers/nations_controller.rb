@@ -8,6 +8,12 @@ class NationsController < OpenReadController
     render json: @nations
   end
 
+  def index_owned
+    @nations = current_user.nations.all
+
+    render json: @nations
+  end
+
   # GET /nations/1
   def show
     @nation = Nation.find(params[:id])
@@ -47,6 +53,10 @@ class NationsController < OpenReadController
 
     # Only allow a trusted parameter "white list" through.
     def nation_params
-      params.require(:nation).permit(:name, :language, :capital)
+      params.require(:nation).permit(:name,
+                                     :language,
+                                     :capital,
+                                     :user_id,
+                                     :highlights)
     end
 end
